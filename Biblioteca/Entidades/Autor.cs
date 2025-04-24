@@ -27,7 +27,7 @@ namespace Biblioteca.Entidades
         public void AdicionarLivro(Livros livro)
         {
             if (LivrosPublicados.Contains(livro))
-                throw new Exception("Livro já publicado por este autor.");
+                throw new DomainException("Livro já publicado por este autor.");
             else
                 // Adiciona o livro à lista de livros publicados
                 LivrosPublicados.Add(livro);
@@ -38,7 +38,7 @@ namespace Biblioteca.Entidades
         {
             if (LivrosPublicados.Count == 0)
             {
-                throw new ArgumentException("Nenhum livro publicado.");
+                throw new DomainException("Nenhum livro publicado.");
             }
 
             foreach (Livros livro in LivrosPublicados)

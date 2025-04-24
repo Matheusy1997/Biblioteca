@@ -35,12 +35,12 @@ namespace Biblioteca.Entidades
             // Verifica se o livro já está na lista de livros emprestados
             if (LivrosEmprestados.Contains(livro))
             {
-                throw new ArgumentException("Livro já emprestado para o usuário.");
+                throw new DomainException("Livro já emprestado para o usuário.");
             }
             // Verifica se o usuário já tem 3 livros emprestados
             if (LivrosEmprestado == 3)
             {
-                throw new ArgumentException("Limite de livros emprestados atingido.");
+                throw new DomainException("Limite de livros emprestados atingido.");
             }
             else
             {
@@ -56,7 +56,7 @@ namespace Biblioteca.Entidades
         {
             if (!LivrosEmprestados.Contains(livro))
             {
-                throw new ArgumentException("Livro não encontrado na lista de livros emprestados.");
+                throw new DomainException("Livro não encontrado na lista de livros emprestados.");
             }
             else
             {
@@ -71,7 +71,7 @@ namespace Biblioteca.Entidades
         {
             if (LivrosEmprestados.Count == 0)
             {
-                throw new ArgumentException("Nenhum livro emprestado.");
+                throw new DomainException("Nenhum livro emprestado.");
             }
 
             foreach (Livros livro in LivrosEmprestados)

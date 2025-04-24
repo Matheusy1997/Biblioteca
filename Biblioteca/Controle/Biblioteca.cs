@@ -19,17 +19,17 @@ namespace Biblioteca.Controle
             // Verifica se o livro já está na lista de livros
             if (Livros.Contains(livro))
             {
-                throw new ArgumentException("Livro já cadastrado.");
+                throw new DomainException("Livro já cadastrado.");
             }
             // Verifica se o autor já está na lista de autores
             if (!Autores.Contains(autor))
             {
-                throw new ArgumentException("Autor não cadastrado.");
+                throw new DomainException("Autor não cadastrado.");
             }
             // Verifica se o livro já foi publicado pelo autor
             if (autor.LivroExiste(livro))
             {
-                throw new ArgumentException("Livro já publicado por este autor.");
+                throw new DomainException("Livro já publicado por este autor.");
             }
             // Adiciona o livro à lista de livros
             Livros.Add(livro);
@@ -41,7 +41,7 @@ namespace Biblioteca.Controle
             // Verifica se o usuário já está na lista de usuários
             if (Usuarios.Contains(usuario))
             {
-                throw new ArgumentException("Usuário já cadastrado.");
+                throw new DomainException("Usuário já cadastrado.");
             }
             else
             {
@@ -54,7 +54,7 @@ namespace Biblioteca.Controle
             // Verifica se o autor já está na lista de autores
             if (Autores.Contains(autor))
             {
-                throw new ArgumentException("Autor já cadastrado.");
+                throw new DomainException("Autor já cadastrado.");
             }
             else
             {
@@ -70,22 +70,22 @@ namespace Biblioteca.Controle
             // Verifica se o usuário já está na lista de usuários
             if (!Usuarios.Contains(usuario))
             {
-                throw new ArgumentException("Usuário não cadastrado.");
+                throw new DomainException("Usuário não cadastrado.");
             }
             // Verifica se o livro já está na lista de livros
             if (!Livros.Contains(livro))
             {
-                throw new ArgumentException("Livro não cadastrado.");
+                throw new DomainException("Livro não cadastrado.");
             }
             // Verifica se o livro já está emprestado
             if (usuario.LivrosEmprestados.Contains(livro))
             {
-                throw new ArgumentException("Livro já emprestado para o usuário.");
+                throw new DomainException("Livro já emprestado para o usuário.");
             }
             // Verifica se o usuário já tem 3 livros emprestados
             if (usuario.LivrosEmprestados.Count == 3)
             {
-                throw new ArgumentException("Limite de livros emprestados atingido.");
+                throw new DomainException("Limite de livros emprestados atingido.");
             }
             // Adiciona o livro à lista de livros emprestados do usuário
             usuario.AdicionarLivroEmprestado(livro);
@@ -101,17 +101,17 @@ namespace Biblioteca.Controle
             // Verifica se o usuário já está na lista de usuários
             if (!Usuarios.Contains(usuario))
             {
-                throw new ArgumentException("Usuário não cadastrado.");
+                throw new DomainException("Usuário não cadastrado.");
             }
             // Verifica se o livro já está na lista de livros emprestados do usuário
             if (!usuario.LivrosEmprestados.Contains(livro))
             {
-                throw new ArgumentException("Livro não encontrado na lista de livros emprestados.");
+                throw new DomainException("Livro não encontrado na lista de livros emprestados.");
             }
             // Verifica se o livro já foi devolvido
             if (LivrosEmprestados.Contains(livro))
             {
-                throw new ArgumentException("Livro já devolvido.");
+                throw new DomainException("Livro já devolvido.");
             }
             // Remove o livro da lista de livros emprestados do usuário
             usuario.RemoverLivroEmprestado(livro);
@@ -126,7 +126,7 @@ namespace Biblioteca.Controle
         {
             if (Livros.Count == 0)
             {
-                throw new ArgumentException("Nenhum livro disponível.");
+                throw new DomainException("Nenhum livro disponível.");
             }
 
             foreach (Livros livro in Livros)
@@ -141,7 +141,7 @@ namespace Biblioteca.Controle
         {
             if (Usuarios.Count == 0)
             {
-                throw new ArgumentException("Nenhum usuário cadastrado.");
+                throw new DomainException("Nenhum usuário cadastrado.");
             }
 
             foreach (Usuario usuario in Usuarios)
@@ -155,7 +155,7 @@ namespace Biblioteca.Controle
         {
             if (Autores.Count == 0)
             {
-                Console.WriteLine("Nenhum autor cadastrado.");
+                throw new DomainException("Nenhum autor cadastrado.");
             }
 
             foreach (Autor autor in Autores)

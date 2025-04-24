@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Biblioteca.Entidades
 {
-    internal class ExcecaoBiblioteca : ApplicationException
+    internal class DomainException : ApplicationException
     {
-        public ExcecaoBiblioteca(string message) : base(message)
+        public DomainException(string message) : base(message)
         {
         }
     }
