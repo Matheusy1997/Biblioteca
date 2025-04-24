@@ -8,14 +8,14 @@ namespace Biblioteca.Entidades
 {
     internal class Usuario
     {
-        public string Nome { get; set; }
-        public string Endereco { get; set; }
-        public string CPF { get; set; }
-        public string Telefone { get; set; }
-        public string Email { get; set; }
-        public DateTime DataNascimento { get; set; }
-        public int LivrosEmprestado { get; set; }
-        public List<Livros> LivrosEmprestados { get; set; } = new List<Livros>();
+        public string Nome { get; private set; }
+        public string Endereco { get; private set; }
+        public string CPF { get; private set; }
+        public string Telefone { get; private set; }
+        public string Email { get; private set; }
+        public DateTime DataNascimento { get; private set; }
+        public int LivrosEmprestado { get; private set; }
+        public List<Livros> LivrosEmprestados { get; private set; } = new List<Livros>();
 
         // Construtor da classe Usuario
         public Usuario(string nome, string endereco, string cPF, string telefone, string email, DateTime dataNascimento)
@@ -35,12 +35,12 @@ namespace Biblioteca.Entidades
             // Verifica se o livro já está na lista de livros emprestados
             if (LivrosEmprestados.Contains(livro))
             {
-                throw new Exception("Livro já emprestado para o usuário.");
+                throw new ArgumentException("Livro já emprestado para o usuário.");
             }
             // Verifica se o usuário já tem 3 livros emprestados
             if (LivrosEmprestado == 3)
             {
-                throw new Exception("Limite de livros emprestados atingido.");
+                throw new ArgumentException("Limite de livros emprestados atingido.");
             }
             else
             {
@@ -56,7 +56,7 @@ namespace Biblioteca.Entidades
         {
             if (!LivrosEmprestados.Contains(livro))
             {
-                throw new Exception("Livro não encontrado na lista de livros emprestados.");
+                throw new ArgumentException("Livro não encontrado na lista de livros emprestados.");
             }
             else
             {
@@ -66,9 +66,23 @@ namespace Biblioteca.Entidades
             }
         }
 
+        // Método para listar todos os livros emprestados
+        public void ListarLivrosEmprestados()
+        {
+            if (LivrosEmprestados.Count == 0)
+            {
+                throw new ArgumentException("Nenhum livro emprestado.");
+            }
+
+            foreach (Livros livro in LivrosEmprestados)
+            {
+                Console.WriteLine(livro.ToString());
+            }
+        }
+
         public override bool Equals(object? obj)
         {
-            if(obj is Usuario usuario)
+            if (obj is Usuario usuario)
             {
                 return CPF.Equals(usuario.CPF);
             }
