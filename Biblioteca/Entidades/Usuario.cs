@@ -30,18 +30,28 @@ namespace Biblioteca.Entidades
 
         public void AdicionarLivroEmprestado(Livros livro)
         {
-
-            LivrosEmprestados.Add(livro);
-            // Incrementa o contador de livros emprestados se não tiver 3 livros emprestados
+            // Verifica se o livro já está na lista de livros emprestados
             if (LivrosEmprestado == 3)
                 throw new Exception("Limite de livros emprestados atingido.");      
             else
                 LivrosEmprestado++;
+
+            // Incrementa o contador de livros emprestados se não tiver 3 livros emprestados
+            LivrosEmprestados.Add(livro);
         }
 
         public void RemoverLivroEmprestado(Livros livro)
         {
-            LivrosEmprestados.Remove(livro);
+            if (!LivrosEmprestados.Contains(livro))
+            {
+                throw new Exception("Livro não encontrado na lista de livros emprestados.");
+            }
+            else
+            {
+                // Remove o livro da lista de livros emprestados
+                LivrosEmprestados.Remove(livro);
+                LivrosEmprestado--;
+            }
         }
 
         public override bool Equals(object? obj)
