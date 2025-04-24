@@ -13,6 +13,7 @@ namespace Biblioteca.Controle
         public List<Usuario> Usuarios { get; set; } = new List<Usuario>();
         public List<Autor> Autores { get; set; }
         public Dictionary<Autor, List<Livros>> AutoresEhLivros { get; set; } = new Dictionary<Autor, List<Livros>>();
+        public Dictionary<Usuario, List<Livros>> UsuariosEhLivros { get; set; } = new Dictionary<Usuario, List<Livros>>();
         public void AdicionarLivro(Autor autor, Livros livro)
         {
             // Verifica se o livro já está na lista de livros
@@ -37,6 +38,7 @@ namespace Biblioteca.Controle
             }
             else
             {
+                UsuariosEhLivros.Add(usuario, new List<Livros>());
                 // Adiciona o usuário à lista de usuários
                 Usuarios.Add(usuario);
             }
@@ -56,6 +58,43 @@ namespace Biblioteca.Controle
                 AutoresEhLivros.Add(autor, new List<Livros>());
             }  
                
+        }
+
+        // Método para remover um livro da lista de livros
+        public void EmprestarLivro(Usuario usuario, Livros livro)
+        {
+            // Verifica se o usuário já está na lista de usuários
+            if (!Usuarios.Contains(usuario))
+            {
+                throw new Exception("Usuário não cadastrado.");
+            }
+            else
+            {
+                // Verifica se o livro já está na lista de livros
+                if (!Livros.Contains(livro))
+                {
+                    throw new Exception("Livro não cadastrado.");
+                }
+                else
+                {
+                    // Verifica se o livro já está emprestado
+                    if (usuario.LivrosEmprestados.Contains(livro))
+                    {
+                        throw new Exception("Livro já emprestado para o usuário.");
+                    }
+                    // Verifica se o usuário já tem 3 livros emprestados
+                    if (usuario.LivrosEmprestados.Count == 3)
+                    {
+                        throw new Exception("Limite de livros emprestados atingido.");
+                    }
+                    // Adiciona o livro à lista de livros emprestados do usuário
+                    usuario.AdicionarLivroEmprestado(livro);
+                    // Adiciona o livro à lista de livros do usuário
+                    UsuariosEhLivros[usuario].Add(livro);
+                    // Remove o livro da lista de livros disponíveis
+                    Livros.Remove(livro);
+                }
+            }
         }
     }
 }

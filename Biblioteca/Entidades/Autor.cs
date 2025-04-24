@@ -14,6 +14,7 @@ namespace Biblioteca.Entidades
         public string Biografia { get; set; }
         public List<Livros> LivrosPublicados { get; set; } = new List<Livros>();
 
+        // Construtor da classe Autor
         public Autor(string nome, string nacionalidade, DateTime dataNascimento, string biografia)
         {
             Nome = nome;
@@ -22,6 +23,7 @@ namespace Biblioteca.Entidades
             Biografia = biografia;
         }
 
+        // Método para adicionar um livro à lista de livros publicados
         public void AdicionarLivro(Livros livro)
         {
             if(LivrosPublicados.Contains(livro))
